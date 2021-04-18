@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import dj-database-url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-!jzjh=k67z0tumt#x7hge!vo&cqt=!d&8b4(kr%@c+10qy7iw9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,7 +41,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'rest_framework',
     'app',
-    # 'corsheaders',
+    'corsheaders',
 
 ]
 
@@ -53,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 
 ]
 
@@ -130,16 +132,19 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+import os
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# CORS_ORIGIN_ALLOW_ALL = False
-#
-# CORS_ORIGIN_WHITELIST = (
-#        'https://localhost:3000',
-# )
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ORIGIN_WHITELIST = (
+       'https://localhost:3000',
+)
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
@@ -147,3 +152,8 @@ REST_FRAMEWORK = {
     'PAGINATE_BY_PARAM': 'page_size'
 
 }
+
+
+
+db_from_env = dj-database-url.config()
+# DATABASE['default'].update(db_from_env)

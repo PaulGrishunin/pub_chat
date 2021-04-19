@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+import django_heroku
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -162,3 +164,5 @@ REST_FRAMEWORK = {
 import dj_database_url
 db_from_env = dj_database_url.config()
 # DATABASES['default'].update(db_from_env)
+
+django_heroku.settings(locals())

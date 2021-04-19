@@ -53,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 
 ]
 
@@ -84,12 +85,13 @@ WSGI_APPLICATION = 'pub_chat.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'chat_db',
-        'USER': 'postgres',
-        'PASSWORD': '123456',
-        'HOST': 'localhost',
-        'PORT': '5433'
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd1o90qgkeljmva',
+        'USER': 'mfgpjplcnpocdq',
+        'PASSWORD': 'cef30d21116912159b66389885ce928feb31d74fc85191e3cfc9c236f529ed7',
+        'HOST': 'ec2-52-21-153-207.compute-1.amazonaws.com',
+        'PORT': '5432'
+
     }
 }
 
@@ -132,9 +134,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# import os
-#
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+import os
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

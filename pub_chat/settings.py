@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-!jzjh=k67z0tumt#x7hge!vo&cqt=!d&8b4(kr%@c+10qy7iw9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'rest_framework',
     'app',
-    # 'corsheaders',
+    'corsheaders',
 
 ]
 
@@ -79,6 +79,8 @@ WSGI_APPLICATION = 'pub_chat.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+
+
 
 DATABASES = {
     'default': {
@@ -130,16 +132,20 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+import os
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# CORS_ORIGIN_ALLOW_ALL = False
-#
-# CORS_ORIGIN_WHITELIST = (
-#        'https://localhost:3000',
-# )
+CORS_ORIGIN_ALLOW_ALL = False
+
+CORS_ORIGIN_WHITELIST = (
+       'https://localhost:3000',
+)
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
@@ -147,3 +153,7 @@ REST_FRAMEWORK = {
     'PAGINATE_BY_PARAM': 'page_size'
 
 }
+
+import dj_database_url
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
